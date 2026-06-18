@@ -21,7 +21,7 @@ Cloud Panel look.
 
 **🎫 Tickets**
 - `/ticket-panel` posts a stunning panel with a category dropdown.
-- Members open private ticket channels (General, Billing, Server Help, Report).
+- Members open private ticket channels (General, Server Help, Report).
 - **Claim**, **Transcript** (beautiful themed HTML export), and **Close** buttons.
 - `/ticket add|remove|rename|close`, support-role pings, transcript to log + DM.
 

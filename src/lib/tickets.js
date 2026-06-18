@@ -11,7 +11,6 @@ const config = require('../../config');
 
 const TICKET_TYPES = {
   general: { label: 'General Support', emoji: '💬', desc: 'Questions and general help' },
-  billing: { label: 'Billing & Upgrades', emoji: '💳', desc: 'Payments, invoices, plan changes' },
   server: { label: 'Server Help', emoji: '🖥️', desc: 'Game server issues & setup' },
   report: { label: 'Report a User', emoji: '🚩', desc: 'Report someone breaking the rules' },
 };
