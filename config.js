@@ -29,6 +29,8 @@ module.exports = {
   token: process.env.DISCORD_TOKEN || '',
   clientId: process.env.CLIENT_ID || '',
   guildId: process.env.GUILD_ID || '',
+  // Auto-register slash commands on startup (set BOT_AUTO_DEPLOY=0 to disable).
+  autoDeploy: process.env.BOT_AUTO_DEPLOY !== '0',
 
   brand: {
     name: process.env.BOT_BRAND_NAME || 'Cloud Panel',

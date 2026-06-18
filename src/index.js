@@ -55,10 +55,30 @@ function fmt(template, member) {
 }
 
 // ---- Events ---------------------------------------------------------------
-client.once(Events.ClientReady, (c) => {
+client.once(Events.ClientReady, async (c) => {
   db.load();
   console.log(`\n☁️  ${config.brand.name} Bot online as ${c.user.tag}`);
   console.log(`   Serving ${c.guilds.cache.size} guild(s) • ${client.commands.size} commands`);
+
+  // ---- Auto-register slash commands on startup ----------------------------
+  // No separate deploy step or CLIENT_ID needed — the bot syncs its own
+  // commands every boot. Set GUILD_ID for INSTANT registration in that server;
+  // otherwise they register globally (can take up to ~1 hour the first time).
+  if (config.autoDeploy) {
+    try {
+      const body = [...client.commands.values()].map((cmd) => cmd.data.toJSON());
+      if (config.guildId) {
+        await c.application.commands.set(body, config.guildId);
+        console.log(`   [deploy] registered ${body.length} commands to guild ${config.guildId} (instant) ✅`);
+      } else {
+        await c.application.commands.set(body);
+        console.log(`   [deploy] registered ${body.length} GLOBAL commands ✅ (set GUILD_ID for instant; global can take up to ~1h)`);
+      }
+    } catch (err) {
+      console.error(`   [deploy] auto-register FAILED: ${err.message}`);
+      console.error('   → Make sure the bot was invited with the "applications.commands" scope.');
+    }
+  }
   console.log('   Reminder: enable the "Server Members" & "Message Content" intents in the Dev Portal.\n');
 
   const activities = [
