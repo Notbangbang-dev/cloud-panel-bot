@@ -1,8 +1,8 @@
 # Cloud Panel Bot ☁️
 
 > The all-in-one, **Cloud Panel-themed** Discord bot — moderation, a gorgeous
-> ticket system, welcome/leave cards, autorole, a beautiful `/help`, and **live
-> control of your Cloud Panel game servers** right from Discord.
+> ticket system, welcome/leave cards, autorole, and a beautiful `/help` —
+> right in your server.
 >
 > *Deploy. Scale. Dominate.*
 
@@ -30,20 +30,13 @@ Cloud Panel look.
 - Placeholders: `{user} {tag} {username} {server} {count} {emoji}`.
 - Auto-assign one or more roles to new members.
 
-**☁️ Cloud Panel control** (the killer feature)
-- `/server list` — every server with live status, CPU, RAM, disk.
-- `/server status <name>` — detailed live resource embed.
-- `/server power <name> <start|stop|restart|kill>`.
-- `/server send <name> <command>` — run a console command.
-- Restrict to a role with `/setup cloudpanel`.
-
 **ℹ️ Info & utility**
 - `/help` (interactive category menu) · `/ping` · `/botinfo`
 - `/userinfo` · `/serverinfo` · `/avatar` · `/membercount`
 - `/say` · `/announce` · `/embed` (modal-based embed builder)
 
 **⚙️ Configuration** — one command does it all: `/setup` with
-`view`, `welcome`, `leave`, `autorole`, `tickets`, `logs`, `cloudpanel`.
+`view`, `welcome`, `leave`, `autorole`, `tickets`, `logs`.
 
 ---
 
@@ -86,24 +79,6 @@ Set `GUILD_ID` to your server's ID during development so commands appear
 
 ---
 
-## ☁️ Linking Cloud Panel
-
-In `.env`:
-
-```
-CLOUDPANEL_URL=http://your-server-ip:8080
-CLOUDPANEL_EMAIL=your-admin@example.com      # the admin you created during Cloud Panel setup
-CLOUDPANEL_PASSWORD=your-admin-password
-# …or a long-lived token instead of email/password:
-CLOUDPANEL_TOKEN=
-```
-
-Then in Discord run `/setup cloudpanel admin_role:@Staff` to choose who may use
-`/server` commands (server managers always can). The bot logs into the panel's
-REST API and caches its token, re-authenticating automatically.
-
----
-
 ## 🗂️ Project structure
 
 ```
@@ -117,12 +92,11 @@ src/
     embeds.js         Branded embed builders
     db.js             Per-guild JSON store (settings, tickets, warnings)
     duration.js       "10m"/"1h30m" parsing
-    cloudpanel.js     Cloud Panel REST client
     tickets.js        Ticket panel, create/claim/close + HTML transcripts
     help.js           Interactive /help builder
     log.js            Mod-log + DM helpers
   commands/
-    moderation.js  warnings.js  tickets.js  setup.js  cloudpanel.js  info.js  misc.js
+    moderation.js  warnings.js  tickets.js  setup.js  info.js  misc.js
 ```
 
 Data is stored in `data/store.json` (per-guild config, open tickets, warnings).

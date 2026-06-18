@@ -31,7 +31,7 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js'))) {
 }
 
 // Require core libs / entry modules to surface syntax errors.
-for (const rel of ['lib/embeds.js', 'lib/db.js', 'lib/theme.js', 'lib/duration.js', 'lib/cloudpanel.js', 'lib/tickets.js', 'lib/help.js', 'lib/log.js', 'interactions.js']) {
+for (const rel of ['lib/embeds.js', 'lib/db.js', 'lib/theme.js', 'lib/duration.js', 'lib/tickets.js', 'lib/help.js', 'lib/log.js', 'interactions.js']) {
   try { require(path.join(__dirname, rel)); }
   catch (err) { console.error(`✗ ${rel}: ${err.message}`); errors++; }
 }

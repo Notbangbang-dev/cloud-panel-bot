@@ -60,7 +60,6 @@ function guildDefaults() {
       open: {}, // channelId -> { ownerId, type, claimedBy, number, createdAt }
     },
     modlog: { channelId: null },
-    cloudpanel: { adminRoleId: null },
     warnings: {}, // userId -> [ { id, modId, reason, at } ]
   };
 }

@@ -30,16 +30,6 @@ module.exports = {
   clientId: process.env.CLIENT_ID || '',
   guildId: process.env.GUILD_ID || '',
 
-  cloudPanel: {
-    url: (process.env.CLOUDPANEL_URL || '').replace(/\/+$/, ''),
-    token: process.env.CLOUDPANEL_TOKEN || '',
-    email: process.env.CLOUDPANEL_EMAIL || '',
-    password: process.env.CLOUDPANEL_PASSWORD || '',
-    get enabled() {
-      return Boolean(this.url && (this.token || (this.email && this.password)));
-    },
-  },
-
   brand: {
     name: process.env.BOT_BRAND_NAME || 'Cloud Panel',
     tagline: process.env.BOT_BRAND_TAGLINE || 'Deploy. Scale. Dominate.',

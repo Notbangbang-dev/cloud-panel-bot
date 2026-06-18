@@ -9,10 +9,9 @@ const META = {
   Moderation: { emoji: '🛡️', desc: 'Keep your community safe and tidy' },
   Tickets: { emoji: '🎫', desc: 'Private support ticket system' },
   Configuration: { emoji: '⚙️', desc: 'Set the bot up for your server' },
-  'Cloud Panel': { emoji: '☁️', desc: 'Control your game servers live' },
   Information: { emoji: 'ℹ️', desc: 'Stats, lookups & utilities' },
 };
-const ORDER = ['Moderation', 'Tickets', 'Cloud Panel', 'Configuration', 'Information'];
+const ORDER = ['Moderation', 'Tickets', 'Configuration', 'Information'];
 
 function group(commands) {
   const map = {};
@@ -35,7 +34,7 @@ function buildHelp(client, commands, category = null) {
       .setThumbnail(embeds.brandIcon(client) || null)
       .setDescription(
         `*${config.brand.tagline}*\n\n` +
-        `The all-in-one bot for your community: moderation, tickets, welcomes, autorole and **live Cloud Panel control**.\n` +
+        `The all-in-one bot for your community: moderation, a ticket system, welcome & leave messages, and autorole.\n` +
         `Use the menu below to explore **${total}** commands by category.\n${divider}`
       );
     for (const cat of cats) {

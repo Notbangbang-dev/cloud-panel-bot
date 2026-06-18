@@ -4,7 +4,6 @@ const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('disco
 const embeds = require('../lib/embeds');
 const { colors, emoji, divider } = require('../lib/theme');
 const db = require('../lib/db');
-const config = require('../../config');
 
 const CATEGORY = 'Configuration';
 
@@ -37,9 +36,7 @@ module.exports = [
         .addRoleOption((o) => o.setName('support_role').setDescription('Role that can see & handle tickets'))
         .addChannelOption((o) => o.setName('log_channel').setDescription('Channel for ticket logs & transcripts').addChannelTypes(ChannelType.GuildText)))
       .addSubcommand((s) => s.setName('logs').setDescription('Set the moderation log channel')
-        .addChannelOption((o) => o.setName('channel').setDescription('Mod-log channel').addChannelTypes(ChannelType.GuildText).setRequired(true)))
-      .addSubcommand((s) => s.setName('cloudpanel').setDescription('Restrict /server commands to a role')
-        .addRoleOption((o) => o.setName('admin_role').setDescription('Role allowed to control Cloud Panel servers').setRequired(true))),
+        .addChannelOption((o) => o.setName('channel').setDescription('Mod-log channel').addChannelTypes(ChannelType.GuildText).setRequired(true))),
     async execute(interaction) {
       const g = db.getGuild(interaction.guild.id);
       const sub = interaction.options.getSubcommand();
@@ -53,9 +50,7 @@ module.exports = [
             { name: `${emoji.door} Leave`, value: `${onoff(g.leave.enabled)} ${emoji.dot} ${chan(g.leave.channelId)}`, inline: false },
             { name: `${emoji.crown} Autorole`, value: g.autorole.roleIds.length ? g.autorole.roleIds.map(role).join(', ') : '`not set`', inline: false },
             { name: `${emoji.ticket} Tickets`, value: `${onoff(g.tickets.enabled)}\nCategory: ${chan(g.tickets.categoryId)} ${emoji.dot} Support: ${role(g.tickets.supportRoleId)} ${emoji.dot} Logs: ${chan(g.tickets.logChannelId)}`, inline: false },
-            { name: `${emoji.shield} Mod-log`, value: chan(g.modlog.channelId), inline: true },
-            { name: `${emoji.cloud} Cloud Panel role`, value: role(g.cloudpanel.adminRoleId), inline: true },
-            { name: `${emoji.panel} Cloud Panel link`, value: config.cloudPanel.enabled ? `${emoji.online} connected` : `${emoji.offline} not configured`, inline: true }
+            { name: `${emoji.shield} Mod-log`, value: chan(g.modlog.channelId), inline: true }
           ).setDescription(divider);
         return interaction.reply({ embeds: [e], ephemeral: true });
       }
@@ -106,11 +101,6 @@ module.exports = [
         return interaction.reply({ embeds: [embeds.success(client, 'Mod-log set', `Moderation actions will be logged in ${chan(g.modlog.channelId)}.`)], ephemeral: true });
       }
 
-      if (sub === 'cloudpanel') {
-        g.cloudpanel.adminRoleId = interaction.options.getRole('admin_role').id;
-        db.save();
-        return interaction.reply({ embeds: [embeds.success(client, 'Cloud Panel role set', `${role(g.cloudpanel.adminRoleId)} can now use \`/server\` commands.${config.cloudPanel.enabled ? '' : '\n\n' + emoji.warn + ' Cloud Panel API is not configured in the bot\'s `.env` yet.'}`)], ephemeral: true });
-      }
     },
   },
 ];

@@ -7,7 +7,6 @@ const config = require('../config');
 const db = require('./lib/db');
 const embeds = require('./lib/embeds');
 const { colors, emoji } = require('./lib/theme');
-const { CloudPanel } = require('./lib/cloudpanel');
 const { handleInteraction } = require('./interactions');
 
 if (!config.token) {
@@ -41,8 +40,7 @@ function loadCommands() {
 }
 loadCommands();
 
-const panel = config.cloudPanel.enabled ? new CloudPanel() : null;
-const ctx = { panel };
+const ctx = {};
 
 // ---- Placeholder formatter ------------------------------------------------
 function fmt(template, member) {
@@ -61,7 +59,6 @@ client.once(Events.ClientReady, (c) => {
   db.load();
   console.log(`\n☁️  ${config.brand.name} Bot online as ${c.user.tag}`);
   console.log(`   Serving ${c.guilds.cache.size} guild(s) • ${client.commands.size} commands`);
-  console.log(`   Cloud Panel link: ${config.cloudPanel.enabled ? 'enabled (' + config.cloudPanel.url + ')' : 'disabled'}`);
   console.log('   Reminder: enable the "Server Members" & "Message Content" intents in the Dev Portal.\n');
 
   const activities = [

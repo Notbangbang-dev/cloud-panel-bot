@@ -119,8 +119,7 @@ module.exports = [
           { name: `${emoji.clock} Uptime`, value: `<t:${Math.floor((Date.now() - process.uptime() * 1000) / 1000)}:R>`, inline: true },
           { name: `${emoji.ram} Memory`, value: `${mem} MB`, inline: true },
           { name: `${emoji.bolt} Ping`, value: `${Math.max(0, Math.round(c.ws.ping))}ms`, inline: true },
-          { name: 'Powered by', value: `discord.js v${djsVersion} ${emoji.dot} Node ${process.version} ${emoji.dot} ${os.type()}`, inline: false },
-          { name: `${emoji.cloud} Cloud Panel`, value: config.cloudPanel.enabled ? `${emoji.online} connected` : `${emoji.offline} not linked`, inline: true }
+          { name: 'Powered by', value: `discord.js v${djsVersion} ${emoji.dot} Node ${process.version} ${emoji.dot} ${os.type()}`, inline: false }
         );
       await interaction.reply({ embeds: [e] });
     },
