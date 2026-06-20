@@ -1,6 +1,6 @@
 {
   "name": "cloud-panel-bot",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Cloud Panel — the ultimate themed Discord bot: moderation, tickets, welcome/leave, autorole, and live Cloud Panel server control.",
   "main": "src/index.js",
