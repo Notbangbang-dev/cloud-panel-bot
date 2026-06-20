@@ -2,7 +2,7 @@
 
 All notable changes to the Cloud Panel Discord bot.
 
-## [1.2.0] — 2026-06-20
+## [1.1.0] — 2026-06-20
 
 ### ✨ Added
 - **`/changelog`** — a new Information command that posts the latest Cloud Panel
