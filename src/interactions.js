@@ -24,6 +24,16 @@ async function handleInteraction(interaction, ctx) {
       return safeReply(interaction, { embeds: [embeds.error(client, 'Server only', 'These commands only work inside a server.')] });
     const cmd = client.commands.get(interaction.commandName);
     if (!cmd) return;
+    // Defense-in-depth: re-check the command's required permissions server-side.
+    // setDefaultMemberPermissions is only a DEFAULT that a guild admin can
+    // override in Server Settings → Integrations, so we never rely on Discord
+    // alone to gate privileged commands (ban/kick/purge/say/announce/…).
+    try {
+      const need = cmd.data && cmd.data.default_member_permissions;
+      if (need && interaction.memberPermissions && !interaction.memberPermissions.has(BigInt(need))) {
+        return safeReply(interaction, { embeds: [embeds.error(client, 'Missing permission', 'You do not have permission to use this command.')] });
+      }
+    } catch { /* if we can't evaluate perms, fall through to the command's own checks */ }
     try {
       await cmd.execute(interaction, ctx);
     } catch (err) {
